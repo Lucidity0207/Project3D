@@ -45,7 +45,7 @@ void AMyCharacter::MoveForward(float value)
         
         if(value<0)
         {
-            Controller->ClientSetRotation(FRotator(180.f, 0.f, -180.f));
+            Controller->ClientSetRotation(FRotator(180.f, -180.f, -180.f));
         }
         else
         {
