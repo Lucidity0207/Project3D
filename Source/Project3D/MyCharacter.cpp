@@ -41,7 +41,26 @@ void AMyCharacter::MoveForward(float value)
     if(Controller != nullptr)
     {
         const FVector Direction = FVector(1.f,0.f,0.f);
-        AddMovementInput(Direction, value*speed);
+        AddMovementInput(Direction, -value*speed);
+        
+        if(value<0)
+        {
+            Controller->ClientSetRotation(FRotator(180.f, 0.f, -180.f));
+        }
+        else
+        {
+            Controller->ClientSetRotation(FRotator(180.f, 180.f, -180.f));
+        }
+        
+    }
+}
+
+void AMyCharacter::MoveRight(float value)
+{
+    if(Controller != nullptr)
+    {
+        const FVector Direction = FVector(0.f,1.f,0.f);
+        AddMovementInput(Direction, -value*speed);
         
         if(value<0)
         {
@@ -53,9 +72,4 @@ void AMyCharacter::MoveForward(float value)
         }
         
     }
-}
-
-void AMyCharacter::MoveRight(float value)
-{
-    
 }
