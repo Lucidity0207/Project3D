@@ -9,6 +9,7 @@ AMyCharacter::AMyCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+    speed = 5;
 }
 
 // Called when the game starts or when spawned
@@ -30,5 +31,31 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+    
+    PlayerInputComponent->BindAxis("MoveForward", this, &AMyCharacter::MoveForward);
+    PlayerInputComponent->BindAxis("MoveRight", this, &AMyCharacter::MoveRight);
 }
 
+void AMyCharacter::MoveForward(float value)
+{
+    if(Controller != nullptr)
+    {
+        const FVector Direction = FVector(1.f,0.f,0.f);
+        AddMovementInput(Direction, value*speed);
+        
+        if(value<0)
+        {
+            Controller->ClientSetRotation(FRotator(180.f, 90.f, -180.f));
+        }
+        else
+        {
+            Controller->ClientSetRotation(FRotator(180.f, -90.f, -180.f));
+        }
+        
+    }
+}
+
+void AMyCharacter::MoveRight(float value)
+{
+    
+}
